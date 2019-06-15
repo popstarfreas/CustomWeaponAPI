@@ -45,6 +45,18 @@ namespace CustomWeaponAPI
             DropAreaWidth = weapon.DropAreaWidth;
         }
 
+        public override bool Equals(object obj) 
+        {
+            CustomWeapon custwep = obj as CustomWeapon;
+            if (custwep == null) return false;
+            return ItemNetId == custwep.ItemNetId;
+        }
+
+        public override int GetHashCode() 
+        {
+            return base.GetHashCode();
+        }
+
         public CustomWeapon()
         {
 
