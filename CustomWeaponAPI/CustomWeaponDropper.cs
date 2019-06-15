@@ -179,17 +179,12 @@ namespace CustomWeaponAPI
             Main.itemLockoutTime[freeIndex] = 0;
             Main.item[freeIndex] = new Item();
             Main.item[freeIndex].active = true;
-            // Main.item[freeIndex].SetDefaults(weapon.ItemNetId, false);
-            // Main.item[freeIndex].Prefix(weapon.Prefix ?? 0);
-            // Main.item[freeIndex].position.X = (player.TPlayer.position.X + player.TPlayer.width / 2 - Main.item[freeIndex].width / 2);
-            //Main.item[freeIndex].position.Y = (player.TPlayer.position.Y + player.TPlayer.height / 2 - Main.item[freeIndex].height / 2);
-            // Main.item[freeIndex].owner = 253;
 
             var itemDrop = new PacketWriter()
                 .SetType((int)PacketTypes.UpdateItemDrop)
                 .PackInt16((short)freeIndex)
-                .PackSingle(player.TPlayer.position.X)
-                .PackSingle(player.TPlayer.position.Y)
+                .PackSingle(player.TPlayer.position.X - (weapon.DropAreaWidth / 2f) ?? 0)
+                .PackSingle(player.TPlayer.position.Y - (weapon.DropAreaHeight / 2f) ?? 0)
                 .PackSingle(0)
                 .PackSingle(0)
                 .PackInt16(weapon.Stack ?? 1)
