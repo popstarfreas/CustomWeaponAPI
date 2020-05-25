@@ -169,14 +169,13 @@ namespace CustomWeaponAPI
             int freeIndex = 400;
             for (int i = 0; i < 400; ++i)
             {
-                if (!Main.item[i].active && Main.itemLockoutTime[i] == 0)
+                if (!Main.item[i].active && Main.timeItemSlotCannotBeReusedFor[i] == 0)
                 {
                     freeIndex = i;
                     break;
                 }
             }
 
-            Main.itemLockoutTime[freeIndex] = 0;
             Main.item[freeIndex] = new Item();
             Main.item[freeIndex].active = true;
 
@@ -184,7 +183,7 @@ namespace CustomWeaponAPI
                 .SetType((int)PacketTypes.UpdateItemDrop)
                 .PackInt16((short)freeIndex)
                 .PackSingle(player.TPlayer.position.X - ((weapon.DropAreaWidth ?? 0) / 2f))
-                .PackSingle(player.TPlayer.position.Y - ((weapon.DropAreaHeight ?? 0)/ 2f))
+                .PackSingle(player.TPlayer.position.Y - ((weapon.DropAreaHeight ?? 0) / 2f))
                 .PackSingle(0)
                 .PackSingle(0)
                 .PackInt16(weapon.Stack ?? 1)
